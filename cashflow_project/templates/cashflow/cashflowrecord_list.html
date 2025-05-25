@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Записи ДДС{% endblock %}
+{% block content %}
+<h1>Движение денежных средств</h1>
+
+<a href="{% url 'cashflow:create' %}" class="btn btn-success mb-3">Добавить запись</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Тип</th>
+            <th>Категория</th>
+            <th>Подкатегория</th>
+            <th>Сумма</th>
+            <th>Комментарий</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in object_list %}
+        <tr>
+            <td>{{ record.date }}</td>
+            <td>{{ record.type.name }}</td>
+            <td>{{ record.category.name }}</td>
+            <td>{{ record.subcategory.name }}</td>
+            <td>{{ record.amount }}</td>
+            <td>{{ record.comment }}</td>
+            <td>
+                <a href="{% url 'cashflow:update' record.pk %}" class="btn btn-sm btn-warning">Редактировать</a>
+                <a href="{% url 'cashflow:delete' record.pk %}" class="btn btn-sm btn-danger">Удалить</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

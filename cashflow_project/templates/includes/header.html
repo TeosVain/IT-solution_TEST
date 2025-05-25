@@ -1,0 +1,18 @@
+{% load static %}
+<header>
+  <nav class="navbar navbar-light" style="background-color: lightskyblue">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'cashflow:list' %}">
+        <img src="{% static 'img/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+        CashFlowViewer
+      </a>
+      {% with request.resolver_match.view_name as view_name %}
+            <div class="btn-group" role="group" aria-label="Basic outlined example">
+              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
+                  href="{% url 'cashflow:create' %}">Создать запись</a></button>
+            </div>
+        </ul>
+      {% endwith %}
+    </div>
+  </nav>
+</header>
