@@ -1,11 +1,8 @@
-{% extends 'base.html' %}
-
-{% block title %}Записи ДДС{% endblock %}
+{% extends "base.html" %}
+{% block title %}
+  Лента записей
+{% endblock %}
 {% block content %}
-<h1>Движение денежных средств</h1>
-
-<a href="{% url 'cashflow:create' %}" class="btn btn-success mb-3">Добавить запись</a>
-
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -19,13 +16,13 @@
         </tr>
     </thead>
     <tbody>
-        {% for record in object_list %}
+        {% for record in page_obj %}
         <tr>
-            <td>{{ record.date }}</td>
+            <td>{{ record.date|date:"d.m.Y" }}</td>
             <td>{{ record.type.name }}</td>
             <td>{{ record.category.name }}</td>
             <td>{{ record.subcategory.name }}</td>
-            <td>{{ record.amount }}</td>
+            <td>{{ record.amount }} {{ record.get_currency_display }}</td>
             <td>{{ record.comment }}</td>
             <td>
                 <a href="{% url 'cashflow:update' record.pk %}" class="btn btn-sm btn-warning">Редактировать</a>
@@ -35,4 +32,5 @@
         {% endfor %}
     </tbody>
 </table>
+  {% include "includes/paginator.html" %}
 {% endblock %}

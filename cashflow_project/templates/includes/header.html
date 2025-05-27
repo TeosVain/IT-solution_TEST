@@ -11,6 +11,10 @@
               <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
                   href="{% url 'cashflow:create' %}">Создать запись</a></button>
             </div>
+            <div class="btn-group" role="group" aria-label="Basic outlined example">
+              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
+                  href="{% url 'cashflow:category_create' %}">Создать категорию</a></button>
+            </div>
         </ul>
       {% endwith %}
     </div>
