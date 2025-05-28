@@ -1,0 +1,28 @@
+{% block scripts %}
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#id_category').change(function () {
+        const url = '{% url "cashflow:ajax_load_subcategories" %}';
+        const categoryId = $(this).val();
+
+        $.ajax({
+          url: url,
+          data: {
+            'category': categoryId
+          },
+          success: function (data) {
+            const subcategorySelect = $('#id_subcategory');
+            subcategorySelect.empty();
+            subcategorySelect.append('<option value="">---------</option>');
+            data.forEach(function (subcategory) {
+              subcategorySelect.append(
+                `<option value="${subcategory.id}">${subcategory.name}</option>`
+              );
+            });
+          }
+        });
+      });
+    });
+  </script>
+{% endblock %}

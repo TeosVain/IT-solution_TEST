@@ -36,6 +36,62 @@
           {% endif %}
           {% bootstrap_button button_type="submit" content="Отправить" %}
         </form>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+          $(document).ready(function () {
+            $('#id_type').change(function () {
+              const urlCategories = '{% url "cashflow:ajax_load_categories" %}';
+              const typeId = $(this).val();
+
+              if (!typeId) {
+                $('#id_category').empty().append('<option value="">---------</option>');
+                $('#id_subcategory').empty().append('<option value="">---------</option>');
+                return;
+              }
+
+              $.ajax({
+                url: urlCategories,
+                data: { 'type': typeId },
+                success: function (data) {
+                  const categorySelect = $('#id_category');
+                  categorySelect.empty();
+                  categorySelect.append('<option value="">---------</option>');
+                  data.forEach(function (category) {
+                    categorySelect.append(
+                      `<option value="${category.id}">${category.name}</option>`
+                    );
+                  });
+                  $('#id_subcategory').empty().append('<option value="">---------</option>');
+                }
+              });
+            });
+            $('#id_category').change(function () {
+              const urlSubcategories = '{% url "cashflow:ajax_load_subcategories" %}';
+              const categoryId = $(this).val();
+
+              if (!categoryId) {
+                $('#id_subcategory').empty().append('<option value="">---------</option>');
+                return;
+              }
+
+              $.ajax({
+                url: urlSubcategories,
+                data: { 'category': categoryId },
+                success: function (data) {
+                  const subcategorySelect = $('#id_subcategory');
+                  subcategorySelect.empty();
+                  subcategorySelect.append('<option value="">---------</option>');
+                  data.forEach(function (subcategory) {
+                    subcategorySelect.append(
+                      `<option value="${subcategory.id}">${subcategory.name}</option>`
+                    );
+                  });
+                }
+              });
+            });
+          });
+        </script>
       </div>
     </div>
   </div>

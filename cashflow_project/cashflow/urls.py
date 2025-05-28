@@ -8,6 +8,7 @@ from cashflow.views import (
     SubcategoryCreateView, SubcategoryDeleteView, SubcategoryListView,
     SubcategoryUpdateView,
     TypeCreateView, TypeDeleteView, TypeListView, TypeUpdateView,
+    load_subcategories, load_categories
 )
 
 app_name = 'cashflow'
@@ -53,4 +54,6 @@ urlpatterns = [
     path('type/', include(type_patterns)),
     path('category/', include(category_patterns)),
     path('subcategory/', include(subcategory_patterns)),
+    path('ajax/load-subcategories/', load_subcategories, name='ajax_load_subcategories'),
+    path('ajax/load-categories/', load_categories, name='ajax_load_categories'),
 ]

@@ -1,4 +1,5 @@
 from django_filters.views import FilterView
+from django.http import JsonResponse
 from django.views.generic import (
     CreateView, DeleteView, ListView, UpdateView
 )
@@ -43,7 +44,7 @@ class SubcategoryFormMixin:
 
     def get_success_url(self):
         return reverse('cashflow:subcategory_list')
-    
+
 
 class TypeFormMixin:
     form_class = TypeForm
@@ -174,3 +175,15 @@ class TypeUpdateView(TypeFormMixin, UpdateView):
 
 class TypeDeleteView(TypeFormMixin, DeleteView):
     model = Type
+
+
+def load_subcategories(request):
+    category_id = request.GET.get('category')
+    subcategories = Subcategory.objects.filter(category_id=category_id).values('id', 'name')
+    return JsonResponse(list(subcategories), safe=False)
+
+
+def load_categories(request):
+    type_id = request.GET.get('type')
+    categories = Category.objects.filter(type_id=type_id).values('id', 'name')
+    return JsonResponse(list(categories), safe=False)
