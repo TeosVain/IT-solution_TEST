@@ -14,19 +14,21 @@ CashFlowViewer — это веб-приложение Django, предназна
 
 1.  Docker и Docker Compose должны быть установлены на вашей системе.
 
-2.  В папке проекта создайте или скопируйте следующие файлы:
+2.  Создайте папку для проекта на вашей системе.
+
+3.  В папке проекта создайте или скопируйте следующие файлы на основе файлов из папки configs:
 
 	- docker-compose.yml — файл для конфигурации и запуска сервисов.
 	- nginx.conf — конфигурация для nginx-прокси.
 	- .env — файл с переменными окружения. Создайте его на основе .env.example.
 
-3.  Запустите контейнеры:
+4.  Запустите контейнеры:
 
     ```bash
     docker compose -f docker-compose.yml up
     ```
 
-4.  После запуска контейнеров выполните миграции, сбор статики и настройку папки /static:
+5.  После запуска контейнеров выполните миграции, сбор статики и настройку папки /static:
 
     ```bash
     docker exec <имя_контейнера_backend> python manage.py makemigrations
@@ -35,13 +37,54 @@ CashFlowViewer — это веб-приложение Django, предназна
     docker exec <имя_контейнера_backend> cp -r /app/collected_static/. /static/
     ```
 
-5.  Создайте суперпользователя:
+6.  Создайте суперпользователя:
 
     ```bash
     docker exec <имя_контейнера_backend> python manage.py createsuperuser
     ```
 
-6. 	Перейдите по адресу: http://localhost:8000/ или http://<ваш адрес>:8000/ и начните работу.
+7. 	Перейдите по адресу: http://localhost:8000/ или http://<ваш адрес>:8000/ и начните работу.
+
+## Установка и запуск через Django (только для разработки)
+
+1.  Клонируйте репозиторий:
+
+    ```bash
+    git clone https://github.com/TeosVain/IT-solution_TEST.git
+    cd IT-solution_TEST
+    ```
+
+2.  Создайте и активируйте виртуальное окружение:
+
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate
+    ```
+
+3.  Установите зависимости:
+
+    ```bash
+    cd backend
+    pip install -r requirements.txt
+    ```
+
+4.  Примените миграции:
+
+    ```bash
+    python manage.py migrate
+    ```
+
+5.  Создайте суперпользователя:
+
+    ```bash
+    python manage.py createsuperuser
+    ```
+
+6.  Запустите сервер разработки:
+
+    ```bash
+    python manage.py runserver
+    ```
 
 ## Настройка
 
