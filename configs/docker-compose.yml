@@ -1,0 +1,29 @@
+version: '3.3'
+
+volumes:
+  static:
+  pg_data:
+
+services:
+  db:
+    image: postgres:14
+    env_file: .env
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+  backend:
+    image: teosvain/cashflow_backend
+    env_file: .env
+    depends_on:
+      - db
+    volumes:
+      - static:/static
+  nginx:
+    container_name: cashflow-proxy
+    image: nginx:1.25.4-alpine
+    depends_on:
+      - backend
+    ports:
+      - "8000:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - static:/static

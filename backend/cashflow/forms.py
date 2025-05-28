@@ -23,7 +23,7 @@ class CashFlowForm(forms.ModelForm):
         model = CashFlowRecord
         fields = [
             'date', 'status', 'type', 'category',
-            'subcategory', 'amount', 'comment'
+            'subcategory', 'amount', 'comment', 'currency'
         ]
 
 
