@@ -15,7 +15,7 @@ CashFlowViewer — это веб-приложение Django, предназна
 1.  Клонируйте репозиторий:
 
     ```bash
-    git clone <repository_url>
+    git clone https://github.com/TeosVain/IT-solution_TEST.git
     cd IT-solution_TEST
     ```
 
