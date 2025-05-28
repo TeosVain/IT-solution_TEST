@@ -1,11 +1,11 @@
 from django import forms
 
-from .models import CashFlowRecord, Category, Status, Subcategory, Type
+from cashflow.models import CashFlowRecord, Category, Status, Subcategory, Type
 
 
 class CashFlowForm(forms.ModelForm):
     date = forms.DateField(
-        input_formats=['%d-%m-%Y'],
+        input_formats=['%d.%m.%Y'],
         widget=forms.DateInput(format='%d.%m.%Y', attrs={'type': 'date'}),
         label='Дата',
         required=False
@@ -18,7 +18,10 @@ class CashFlowForm(forms.ModelForm):
 
     class Meta:
         model = CashFlowRecord
-        exclude = ('author',)
+        fields = [
+            'date', 'status', 'type', 'category',
+            'subcategory', 'amount', 'comment'
+        ]
 
 
 class CategoryForm(forms.ModelForm):
@@ -29,6 +32,7 @@ class CategoryForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'placeholder': 'Название категории'}),
         }
 
+
 class SubcategoryForm(forms.ModelForm):
     class Meta:
         model = Subcategory
@@ -38,6 +42,7 @@ class SubcategoryForm(forms.ModelForm):
             'category': forms.Select(attrs={'placeholder': 'Выберите категорию'})
         }
 
+
 class StatusForm(forms.ModelForm):
     class Meta:
         model = Status
@@ -45,6 +50,7 @@ class StatusForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Название статуса'})
         }
+
 
 class TypeForm(forms.ModelForm):
     class Meta:

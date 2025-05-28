@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block title %}
+  {% if "/update/" in request.path %}
+    Редактирование записи
+  {% elif "/delete/" in request.path %}
+    Удаление записи
+  {% else %}
+    Добавление записи
+  {% endif %}
+{% endblock %}
+{% block content %}
+  <div class="col d-flex justify-content-center">
+    <div class="card" style="width: 40rem;">
+      <div class="card-header">
+        {% if '/update/' in request.path %}
+          Редактирование записи
+        {% elif '/delete/' in request.path %}
+          Удаление записи
+        {% else %}
+          Добавление записи
+        {% endif %}
+      </div>
+      <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {% if not '/delete/' in request.path %}
+            {% bootstrap_form form %}
+          {% else %}
+            <article>
+              <h3>{{ object.date }}</h3>
+              <p>{{ object.amount }} {{ object.currency }}</p>
+              <p>{{ object.category }} / {{ object.subcategory }}</p>
+              <p>{{ object.comment|linebreaksbr }}</p>
+            </article>
+          {% endif %}
+          {% bootstrap_button button_type="submit" content="Отправить" %}
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

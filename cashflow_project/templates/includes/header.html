@@ -1,21 +1,18 @@
 {% load static %}
 <header>
-  <nav class="navbar navbar-light" style="background-color: lightskyblue">
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark shadow-sm" >
     <div class="container">
-      <a class="navbar-brand" href="{% url 'cashflow:list' %}">
-        <img src="{% static 'img/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
-        CashFlowViewer
+      <a class="navbar-brand d-flex align-items-center gap-2 text-white" href="{% url 'pages:main' %}">
+        <i class="bi bi-cash-coin fs-4"></i>
+        <span class="fw-bold">CashFlowViewer</span>
       </a>
+      
       {% with request.resolver_match.view_name as view_name %}
-            <div class="btn-group" role="group" aria-label="Basic outlined example">
-              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
-                  href="{% url 'cashflow:create' %}">Создать запись</a></button>
-            </div>
-            <div class="btn-group" role="group" aria-label="Basic outlined example">
-              <button type="button" class="btn btn-outline-primary"><a class="text-decoration-none text-reset"
-                  href="{% url 'cashflow:category_create' %}">Создать категорию</a></button>
-            </div>
-        </ul>
+      <div class="ms-auto">
+        <a href="{% url 'cashflow:create' %}" class="btn btn-outline-light">
+          + Создать запись
+        </a>
+      </div>
       {% endwith %}
     </div>
   </nav>

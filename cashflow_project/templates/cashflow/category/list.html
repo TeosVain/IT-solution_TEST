@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}
+  Категории
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Список категорий</h5>
+      <a href="{% url 'cashflow:category_create' %}" class="btn btn-sm btn-primary">+ Добавить категорию</a>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover table-striped mb-0 align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Название</th>
+              <th>Тип</th>
+              <th>Подкатегории</th>
+              <th class="text-end">Действия</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for category in page_obj %}
+            <tr>
+              <td>{{ category.name }}</td>
+              <td>{{ category.type.name }}</td>
+              <td>
+                {% with subcategories=category.subcategories.all %}
+                  {{ subcategories|slice:":2"|join:", " }}
+                  {% if subcategories|length > 2 %}
+                    …
+                  {% endif %}
+                  {% if subcategories %}
+                    <div class="mt-1">
+                      <a href="{% url 'cashflow:subcategory_list' %}?category={{ category.id }}" class="btn btn-sm btn-outline-primary">
+                        Все подкатегории
+                      </a>
+                    </div>
+                  {% else %}
+                    <div class="mt-1">
+                      <a href="{% url 'cashflow:subcategory_create' %}?category={{ category.id }}" class="btn btn-sm btn-outline-secondary">
+                        + Добавить подкатегорию
+                      </a>
+                    </div>
+                  {% endif %}
+                {% endwith %}
+              </td>
+              <td class="text-end">
+                <a href="{% url 'cashflow:category_update' category.pk %}" class="btn btn-sm btn-outline-warning me-1">Редактировать</a>
+                <a href="{% url 'cashflow:category_delete' category.pk %}" class="btn btn-sm btn-outline-danger">Удалить</a>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="4" class="text-center text-muted py-4">
+                Категории пока не добавлены.
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer">
+      {% include "includes/paginator.html" %}
+    </div>
+  </div>
+</div>
+{% endblock %}

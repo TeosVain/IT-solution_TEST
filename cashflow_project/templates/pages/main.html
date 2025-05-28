@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}
+  О проекте
+{% endblock %}
+{% block content %}
+<div class="col d-flex justify-content-center">
+  <div class="card" style="width: 40rem;">
+    <div class="card-header text-center">
+      <h5 class="mb-0">О проекте</h5>
+    </div>
+    <div class="card-body">
+      <p>
+        <strong>CashFlowViewer</strong> — это удобный сервис для просмотра и анализа финансовых потоков.
+      </p>
+      <div class="d-grid gap-2 mb-3">
+        <a href="{% url 'cashflow:list' %}" class="btn btn-primary">
+          Финансовые операции
+        </a>
+      </div>
+
+      <div class="d-flex flex-wrap gap-2 justify-content-center">
+        <a href="{% url 'cashflow:status_list' %}" class="btn btn-outline-primary">
+          Статусы
+        </a>
+        <a href="{% url 'cashflow:type_list' %}" class="btn btn-outline-primary">
+          Типы
+        </a>
+        <a href="{% url 'cashflow:category_list' %}" class="btn btn-outline-primary">
+          Категории
+        </a>
+        <a href="{% url 'cashflow:subcategory_list' %}" class="btn btn-outline-primary">
+          Подкатегории
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

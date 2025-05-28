@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 User = get_user_model()
 
@@ -55,7 +56,7 @@ class Subcategory(models.Model):
 
 
 class CashFlowRecord(models.Model):
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField(default=timezone.now, verbose_name='Дата')
     status = models.ForeignKey(Status, on_delete=models.PROTECT, verbose_name='Статус')
     type = models.ForeignKey(Type, on_delete=models.PROTECT, verbose_name='Тип')
     category = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name='Категория')
@@ -67,9 +68,6 @@ class CashFlowRecord(models.Model):
         default='RUB', verbose_name='Валюта'
     )
     comment = models.TextField(blank=True, verbose_name='Комментарий')
-    author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='cashflow_records', default=None
-    )
 
     class Meta:
         verbose_name = 'Статус'

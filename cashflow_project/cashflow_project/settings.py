@@ -23,7 +23,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cashflow.apps.CashflowConfig',
     'users.apps.UsersConfig',
+    'pages.apps.PagesConfig',
     'django_bootstrap5',
+    'django_filters',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
