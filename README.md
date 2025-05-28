@@ -12,43 +12,36 @@ CashFlowViewer — это веб-приложение Django, предназна
 
 ## Установка
 
-1.  Клонируйте репозиторий:
+1.  Docker и Docker Compose должны быть установлены на вашей системе.
+
+2.  В папке проекта создайте или скопируйте следующие файлы:
+
+	•	docker-compose.yml — файл для конфигурации и запуска сервисов.
+	•	nginx.conf — конфигурация для nginx-прокси.
+	•	.env — файл с переменными окружения. Создайте его на основе .env.example.
+
+3.  Запустите контейнеры:
 
     ```bash
-    git clone https://github.com/TeosVain/IT-solution_TEST.git
-    cd IT-solution_TEST
+    docker compose -f docker-compose.yml up
     ```
 
-2.  Создайте и активируйте виртуальное окружение:
+4.  После запуска контейнеров выполните миграции, сбор статики и настройку папки /static:
 
     ```bash
-    python3 -m venv venv
-    source venv/bin/activate
-    ```
-
-3.  Установите зависимости:
-
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-4.  Примените миграции:
-
-    ```bash
-    python manage.py migrate
+    docker exec <имя_контейнера_backend> python manage.py makemigrations
+    docker exec <имя_контейнера_backend> python manage.py migrate
+    docker exec <имя_контейнера_backend> python manage.py collectstatic
+    docker exec <имя_контейнера_backend> cp -r /app/collected_static/. /static/
     ```
 
 5.  Создайте суперпользователя:
 
     ```bash
-    python manage.py createsuperuser
+    docker exec <имя_контейнера_backend> python manage.py createsuperuser
     ```
 
-6.  Запустите сервер разработки:
-
-    ```bash
-    python manage.py runserver
-    ```
+6. 	Перейдите по адресу: http://localhost:8000/ или http://<ваш адрес>:8000/ и начните работу.
 
 ## Настройка
 
@@ -57,19 +50,20 @@ CashFlowViewer — это веб-приложение Django, предназна
 
 ## Использование
 
-1.  Откройте веб-браузер и перейдите по адресу `http://127.0.0.1:8000/`.
+1.  Сайт также доступен по адресу http://77.110.115.35:8000/.
 2.  Войдите в систему, используя учетные данные суперпользователя.
 3.  Перейдите с главной страницы во вкладки (статусы, типы, категории, подкатегории) для их добавления и настройки. Настроить эти разделы можно и в административной панель (`/admin/`).
 4.  Используйте основное меню для просмотра и добавления финансовых операций.
 
-## Зависимости
+## Технологии
 
-Основные зависимости проекта перечислены в файле `requirements.txt`:
-
-*   Django
-*   django-bootstrap5
-*   django-widget-tweaks
-*   и другие
+	•	Django — веб-фреймворк Python.
+	•	PostgreSQL — СУБД для хранения данных.
+	•	Docker — контейнеризация приложения.
+	•	Docker Compose — оркестрация сервисов.
+	•	nginx — прокси-сервер.
+	•	gunicorn — WSGI-сервер для запуска Django-приложения.
+	•	django-bootstrap5, django-widget-tweaks — удобства на фронтенде.
 
 ## Автор
 

@@ -10,6 +10,7 @@ services:
     env_file: .env
     volumes:
       - pg_data:/var/lib/postgresql/data
+    restart: always
   backend:
     image: teosvain/cashflow_backend
     env_file: .env
@@ -17,6 +18,7 @@ services:
       - db
     volumes:
       - static:/static
+    restart: always
   nginx:
     container_name: cashflow-proxy
     image: nginx:1.25.4-alpine
@@ -27,3 +29,4 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
       - static:/static
+    restart: always
