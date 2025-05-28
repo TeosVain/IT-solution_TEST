@@ -68,19 +68,22 @@ CashFlowViewer — это веб-приложение Django, предназна
     pip install -r requirements.txt
     ```
 
-4.  Примените миграции:
+4.  Измените базу данных в файле backend/cashflow_project/settings.py на SQLite.
+    - https://docs.djangoproject.com/en/5.2/ref/databases/
+    
+5.  Примените миграции:
 
     ```bash
     python manage.py migrate
     ```
 
-5.  Создайте суперпользователя:
+6.  Создайте суперпользователя:
 
     ```bash
     python manage.py createsuperuser
     ```
 
-6.  Запустите сервер разработки:
+7.  Запустите сервер разработки:
 
     ```bash
     python manage.py runserver
