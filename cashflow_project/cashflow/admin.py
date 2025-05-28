@@ -5,7 +5,9 @@ from cashflow.models import CashFlowRecord, Category, Status, Subcategory, Type
 
 @admin.register(CashFlowRecord)
 class CashFlowRecordAdmin(admin.ModelAdmin):
-    list_display = ('date', 'status', 'type', 'category', 'subcategory', 'amount',)
+    list_display = (
+        'date', 'status', 'type', 'category', 'subcategory', 'amount',
+    )
     list_filter = ('status', 'type', 'category', 'subcategory')
     search_fields = ('comment',)
     date_hierarchy = 'date'
