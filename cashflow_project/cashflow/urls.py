@@ -8,8 +8,9 @@ from cashflow.views import (
     SubcategoryCreateView, SubcategoryDeleteView, SubcategoryListView,
     SubcategoryUpdateView,
     TypeCreateView, TypeDeleteView, TypeListView, TypeUpdateView,
-    load_subcategories, load_categories
+    load_categories, load_subcategories
 )
+
 
 app_name = 'cashflow'
 
@@ -37,15 +38,29 @@ type_patterns = [
 category_patterns = [
     path('', CategoryListView.as_view(), name='category_list'),
     path('create/', CategoryCreateView.as_view(), name='category_create'),
-    path('update/<int:pk>/', CategoryUpdateView.as_view(), name='category_update'),
-    path('delete/<int:pk>/', CategoryDeleteView.as_view(), name='category_delete'),
+    path(
+        'update/<int:pk>/',
+        CategoryUpdateView.as_view(), name='category_update'
+    ),
+    path(
+        'delete/<int:pk>/',
+        CategoryDeleteView.as_view(), name='category_delete'
+    ),
 ]
 
 subcategory_patterns = [
     path('', SubcategoryListView.as_view(), name='subcategory_list'),
-    path('create/', SubcategoryCreateView.as_view(), name='subcategory_create'),
-    path('update/<int:pk>/', SubcategoryUpdateView.as_view(), name='subcategory_update'),
-    path('delete/<int:pk>/', SubcategoryDeleteView.as_view(), name='subcategory_delete'),
+    path(
+        'create/', SubcategoryCreateView.as_view(), name='subcategory_create'
+    ),
+    path(
+        'update/<int:pk>/',
+        SubcategoryUpdateView.as_view(), name='subcategory_update'
+    ),
+    path(
+        'delete/<int:pk>/',
+        SubcategoryDeleteView.as_view(), name='subcategory_delete'
+    ),
 ]
 
 urlpatterns = [
@@ -54,6 +69,12 @@ urlpatterns = [
     path('type/', include(type_patterns)),
     path('category/', include(category_patterns)),
     path('subcategory/', include(subcategory_patterns)),
-    path('ajax/load-subcategories/', load_subcategories, name='ajax_load_subcategories'),
-    path('ajax/load-categories/', load_categories, name='ajax_load_categories'),
+    path(
+        'ajax/load-subcategories/',
+        load_subcategories, name='ajax_load_subcategories'
+    ),
+    path(
+        'ajax/load-categories/',
+        load_categories, name='ajax_load_categories'
+    ),
 ]

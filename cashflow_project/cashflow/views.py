@@ -118,7 +118,7 @@ class CategoryListView(ListView):
         if type_id:
             qs = qs.filter(type_id=type_id)
         return qs
-    
+
 
 class CategoryCreateView(CategoryFormMixin, CreateView):
     model = Category
@@ -179,7 +179,9 @@ class TypeDeleteView(TypeFormMixin, DeleteView):
 
 def load_subcategories(request):
     category_id = request.GET.get('category')
-    subcategories = Subcategory.objects.filter(category_id=category_id).values('id', 'name')
+    subcategories = Subcategory.objects.filter(
+        category_id=category_id
+    ).values('id', 'name')
     return JsonResponse(list(subcategories), safe=False)
 
 

@@ -29,7 +29,9 @@ class CategoryForm(forms.ModelForm):
         model = Category
         fields = ['name', 'type']
         widgets = {
-            'name': forms.TextInput(attrs={'placeholder': 'Название категории'}),
+            'name': forms.TextInput(
+                attrs={'placeholder': 'Название категории'}
+            ),
         }
 
 
@@ -38,8 +40,12 @@ class SubcategoryForm(forms.ModelForm):
         model = Subcategory
         fields = ['name', 'category']
         widgets = {
-            'name': forms.TextInput(attrs={'placeholder': 'Название подкатегории'}),
-            'category': forms.Select(attrs={'placeholder': 'Выберите категорию'})
+            'name': forms.TextInput(
+                attrs={'placeholder': 'Название подкатегории'}
+            ),
+            'category': forms.Select(
+                attrs={'placeholder': 'Выберите категорию'}
+            ),
         }
 
 

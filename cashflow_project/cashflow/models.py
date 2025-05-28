@@ -56,12 +56,24 @@ class Subcategory(models.Model):
 
 
 class CashFlowRecord(models.Model):
-    date = models.DateField(default=timezone.now, verbose_name='Дата')
-    status = models.ForeignKey(Status, on_delete=models.PROTECT, verbose_name='Статус')
-    type = models.ForeignKey(Type, on_delete=models.PROTECT, verbose_name='Тип')
-    category = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name='Категория')
-    subcategory = models.ForeignKey(Subcategory, on_delete=models.PROTECT, verbose_name='Подкатегория')
-    amount = models.DecimalField(max_digits=12, decimal_places=2, verbose_name='Сумма')
+    date = models.DateField(
+        default=timezone.now, verbose_name='Дата'
+    )
+    status = models.ForeignKey(
+        Status, on_delete=models.PROTECT, verbose_name='Статус'
+    )
+    type = models.ForeignKey(
+        Type, on_delete=models.PROTECT, verbose_name='Тип'
+    )
+    category = models.ForeignKey(
+        Category, on_delete=models.PROTECT, verbose_name='Категория'
+    )
+    subcategory = models.ForeignKey(
+        Subcategory, on_delete=models.PROTECT, verbose_name='Подкатегория'
+    )
+    amount = models.DecimalField(
+        max_digits=12, decimal_places=2, verbose_name='Сумма'
+    )
     currency = models.CharField(
         max_length=3,
         choices=[('RUB', '₽'), ('USD', '$'), ('EUR', '€')],
@@ -70,8 +82,8 @@ class CashFlowRecord(models.Model):
     comment = models.TextField(blank=True, verbose_name='Комментарий')
 
     class Meta:
-        verbose_name = 'Статус'
-        verbose_name_plural = 'Статусы'
+        verbose_name = 'Запись движения средств'
+        verbose_name_plural = 'Записи движения средств'
 
     def __str__(self) -> str:
         return self.comment[:100]
