@@ -2,11 +2,15 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
 
+from cashflow_project.constants import (
+    MAX_LENGTH, MAX_DIGITS, MAX_DECIMAL, LEN_CURRENCY
+)
+
 User = get_user_model()
 
 
 class Status(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=MAX_LENGTH)
 
     class Meta:
         verbose_name = 'Статус'
@@ -17,7 +21,7 @@ class Status(models.Model):
 
 
 class Type(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=MAX_LENGTH)
 
     class Meta:
         verbose_name = 'Тип'
@@ -28,7 +32,7 @@ class Type(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=MAX_LENGTH)
     type = models.ForeignKey(
         Type, on_delete=models.CASCADE, related_name='categories'
     )
@@ -42,7 +46,7 @@ class Category(models.Model):
 
 
 class Subcategory(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=MAX_LENGTH)
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name='subcategories'
     )
@@ -72,10 +76,10 @@ class CashFlowRecord(models.Model):
         Subcategory, on_delete=models.PROTECT, verbose_name='Подкатегория'
     )
     amount = models.DecimalField(
-        max_digits=12, decimal_places=2, verbose_name='Сумма'
+        max_digits=MAX_DIGITS, decimal_places=MAX_DECIMAL, verbose_name='Сумма'
     )
     currency = models.CharField(
-        max_length=3,
+        max_length=LEN_CURRENCY,
         choices=[('RUB', '₽'), ('USD', '$'), ('EUR', '€')],
         default='RUB', verbose_name='Валюта'
     )
@@ -86,4 +90,4 @@ class CashFlowRecord(models.Model):
         verbose_name_plural = 'Записи движения средств'
 
     def __str__(self) -> str:
-        return self.comment[:100]
+        return self.comment[:MAX_LENGTH]

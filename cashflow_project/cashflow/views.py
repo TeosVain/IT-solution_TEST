@@ -12,6 +12,7 @@ from cashflow.forms import (
     StatusForm, SubcategoryForm, TypeForm
 )
 from cashflow.models import CashFlowRecord, Category, Status, Subcategory, Type
+from cashflow_project.constants import PAGINATE_QUANTITY
 
 
 class RecordFormMixin:
@@ -57,7 +58,7 @@ class TypeFormMixin:
 class RecordListView(FilterView):
     model = CashFlowRecord
     template_name = 'cashflow/record/list.html'
-    paginate_by = 10
+    paginate_by = PAGINATE_QUANTITY
     filterset_class = CashFlowRecordFilter
 
 
@@ -89,7 +90,7 @@ class RecordDeleteView(DeleteView):
 
 class StatusListView(ListView):
     model = Status
-    paginate_by = 10
+    paginate_by = PAGINATE_QUANTITY
     template_name = 'cashflow/status/list.html'
     ordering = ['name']
 
@@ -108,7 +109,7 @@ class StatusDeleteView(StatusFormMixin, DeleteView):
 
 class CategoryListView(ListView):
     model = Category
-    paginate_by = 10
+    paginate_by = PAGINATE_QUANTITY
     template_name = 'cashflow/category/list.html'
     ordering = ['name']
 
@@ -134,7 +135,7 @@ class CategoryDeleteView(CategoryFormMixin, DeleteView):
 
 class SubcategoryListView(ListView):
     model = Subcategory
-    paginate_by = 10
+    paginate_by = PAGINATE_QUANTITY
     template_name = 'cashflow/subcategory/list.html'
     ordering = ['name']
 
@@ -160,7 +161,7 @@ class SubcategoryDeleteView(SubcategoryFormMixin, DeleteView):
 
 class TypeListView(ListView):
     model = Type
-    paginate_by = 10
+    paginate_by = PAGINATE_QUANTITY
     template_name = 'cashflow/type/list.html'
     ordering = ['name']
 

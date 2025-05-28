@@ -1,6 +1,7 @@
 from django import forms
 
 from cashflow.models import CashFlowRecord, Category, Status, Subcategory, Type
+from cashflow_project.constants import ROWS
 
 
 class CashFlowForm(forms.ModelForm):
@@ -11,7 +12,9 @@ class CashFlowForm(forms.ModelForm):
         required=False
     )
     comment = forms.CharField(
-        widget=forms.Textarea(attrs={'rows': 3, 'placeholder': 'Комментарий'}),
+        widget=forms.Textarea(
+            attrs={'rows': ROWS, 'placeholder': 'Комментарий'}
+        ),
         label='Комментарий',
         required=False
     )
